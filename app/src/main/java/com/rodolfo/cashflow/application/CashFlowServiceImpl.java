@@ -4,7 +4,6 @@ import com.rodolfo.cashflow.domain.contracts.ISaldoService;
 import com.rodolfo.cashflow.domain.contracts.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.contracts.ItransacionRepository;
 import com.rodolfo.cashflow.domain.models.Gasto;
-import com.rodolfo.cashflow.domain.models.Ingreso;
 import com.rodolfo.cashflow.domain.models.Transaccion;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
@@ -21,12 +20,17 @@ public class CashFlowServiceImpl implements ISaldoService {
     }
 
     @Override
-    public void registrarGasto(Gasto gasto) {
+    public void registrarGasto(Transaccion gasto) {
         Usuario usuario = usuarioRepo.buscarUsuario(gasto.getId());
     }
 
     @Override
-    public void registrarIngreso(Ingreso ingreso) {
+    public void registrarTransferencia(Transaccion transferencia) {
+        Usuario usuario = usuarioRepo.buscarUsuario(transferencia.getId());
+    }
+
+    @Override
+    public void registrarUsuario(Usuario usuario) {
 
     }
 

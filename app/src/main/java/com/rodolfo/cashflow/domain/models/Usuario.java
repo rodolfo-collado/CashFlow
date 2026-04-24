@@ -8,9 +8,12 @@ import java.math.BigDecimal;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 @Entity(tableName = "usuarios")
-@Getter @Setter
 public class Usuario {
     @PrimaryKey(autoGenerate = true)
     private Integer id;
@@ -23,6 +26,9 @@ public class Usuario {
 
     @ColumnInfo(name = "correo")
     private String correo;
+
+    @ColumnInfo(name = "telefono")
+    private Integer telefono;
 
     @ColumnInfo(name = "saldo_Total")
     private BigDecimal saldoTotal;
