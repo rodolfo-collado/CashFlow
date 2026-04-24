@@ -17,6 +17,9 @@ public interface TransaccionDao {
     @Query("SELECT * FROM transacciones")
     List<Transaccion> obtenerTodos();
 
+    @Query("DELETE FROM transacciones WHERE id = :id")
+    void eliminarPorId(Integer id);
+
     @Query("SELECT * FROM transacciones WHERE tipo = 'GASTO'")
     List<Transaccion> obtenerSoloGastos();
 

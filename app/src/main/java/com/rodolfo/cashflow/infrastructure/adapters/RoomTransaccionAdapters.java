@@ -25,6 +25,6 @@ public class RoomTransaccionAdapters implements ItransacionRepository {
 
     @Override
     public void borrar(int id) {
-
+        dao.eliminarPorId(id);
     }
 }

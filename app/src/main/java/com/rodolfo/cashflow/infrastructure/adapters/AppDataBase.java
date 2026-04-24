@@ -11,7 +11,7 @@ import com.rodolfo.cashflow.domain.models.Usuario;
 @Database(entities = {Transaccion.class, Usuario.class}, version = 1) // Le indica a Room cuáles son las tablas
 public abstract class AppDataBase extends RoomDatabase {
 
-    // Room genera el código automáticamenteTy
+    // Room genera el código automáticamente
     public abstract TransaccionDao transaccionDao();
     public abstract UsuarioDao usuarioDao();
 }
