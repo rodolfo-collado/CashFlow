@@ -1,20 +1,19 @@
 package com.rodolfo.cashflow.application;
 
-import com.rodolfo.cashflow.domain.contracts.ISaldoService;
-import com.rodolfo.cashflow.domain.contracts.IUsuarioRepository;
-import com.rodolfo.cashflow.domain.contracts.ItransacionRepository;
-import com.rodolfo.cashflow.domain.models.Gasto;
+import com.rodolfo.cashflow.domain.contracts.services.ISaldoService;
+import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
+import com.rodolfo.cashflow.domain.contracts.repositories.ItransacionRepository;
 import com.rodolfo.cashflow.domain.models.Transaccion;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class CashFlowServiceImpl implements ISaldoService {
+public class FlujoDineroServiceImpl implements ISaldoService {
     private final ItransacionRepository transaccionRepo;
     private final IUsuarioRepository usuarioRepo;
 
-    public CashFlowServiceImpl( ItransacionRepository transaccionRepo, IUsuarioRepository usuarioRepo) {
+    public FlujoDineroServiceImpl(ItransacionRepository transaccionRepo, IUsuarioRepository usuarioRepo) {
         this.transaccionRepo = transaccionRepo;
         this.usuarioRepo = usuarioRepo;
     }

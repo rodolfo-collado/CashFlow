@@ -1,7 +1,6 @@
 package com.rodolfo.cashflow.infrastructure.adapters;
 
-import com.rodolfo.cashflow.domain.contracts.IUsuarioRepository;
-import com.rodolfo.cashflow.domain.contracts.ItransacionRepository;
+import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
 public class RoomUsuarioAdapters implements IUsuarioRepository {

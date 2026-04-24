@@ -1,4 +1,4 @@
-package com.rodolfo.cashflow.domain.contracts;
+package com.rodolfo.cashflow.domain.contracts.repositories;
 
 import com.rodolfo.cashflow.domain.models.Transaccion;
 

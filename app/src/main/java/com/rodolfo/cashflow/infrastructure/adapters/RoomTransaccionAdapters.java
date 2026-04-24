@@ -1,9 +1,8 @@
 package com.rodolfo.cashflow.infrastructure.adapters;
 
-import com.rodolfo.cashflow.domain.contracts.ItransacionRepository;
+import com.rodolfo.cashflow.domain.contracts.repositories.ItransacionRepository;
 import com.rodolfo.cashflow.domain.models.Transaccion;
 
-import java.util.Collections;
 import java.util.List;
 
 public class RoomTransaccionAdapters implements ItransacionRepository {

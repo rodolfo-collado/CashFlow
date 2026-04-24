@@ -1,4 +1,4 @@
-package com.rodolfo.cashflow.domain.contracts;
+package com.rodolfo.cashflow.domain.contracts.services;
 
 import com.rodolfo.cashflow.domain.models.Transaccion;
 import com.rodolfo.cashflow.domain.models.Usuario;
