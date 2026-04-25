@@ -3,17 +3,18 @@ package com.rodolfo.cashflow.application;
 import com.rodolfo.cashflow.domain.contracts.services.ISaldoService;
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.contracts.repositories.ItransacionRepository;
+import com.rodolfo.cashflow.domain.exceptions.MontoInvalidoException;
+import com.rodolfo.cashflow.domain.exceptions.TransferenciaInvalidaException;
 import com.rodolfo.cashflow.domain.models.Transaccion;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
-public class FlujoDineroServiceImpl implements ISaldoService {
+public class FlujoDineroService implements ISaldoService {
     private final ItransacionRepository transaccionRepo;
     private final IUsuarioRepository usuarioRepo;
 
-    public FlujoDineroServiceImpl(ItransacionRepository transaccionRepo, IUsuarioRepository usuarioRepo) {
+    public FlujoDineroService(ItransacionRepository transaccionRepo, IUsuarioRepository usuarioRepo) {
         this.transaccionRepo = transaccionRepo;
         this.usuarioRepo = usuarioRepo;
     }
@@ -38,18 +39,13 @@ public class FlujoDineroServiceImpl implements ISaldoService {
         return null;
     }
 
-    private void validacionTransaccionBasica(Transaccion transaccion){
+    private void validacionTransaccionBasica(Transaccion transaccion) {
         if (transaccion == null || transaccion.getMonto() == null) {
-            throw new IllegalArgumentException("Datos incompletos.");
+            throw new TransferenciaInvalidaException("Transacción inválida. Debe tener un monto.");
         }
         if (transaccion.getMonto().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("El monto debe ser mayor a 0.");
+            throw new MontoInvalidoException("Monto inválido, debe ser mayor a 0.");
         }
-        if (transaccion.getDate().isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("Fecha inválida.");
-        }
-
-
     }
 
 

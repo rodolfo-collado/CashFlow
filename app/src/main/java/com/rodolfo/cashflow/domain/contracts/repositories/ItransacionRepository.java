@@ -10,6 +10,10 @@ public interface ItransacionRepository {
 
     List<Transaccion> obtenerTodas(); // Mostrar el Historial en el RecycleView
 
+    List<Transaccion> obtenerGastos();
+
+    List<Transaccion> obtenerTransferencias();
+
     void borrar(int id); // borrar errores (opcional)
 
 }

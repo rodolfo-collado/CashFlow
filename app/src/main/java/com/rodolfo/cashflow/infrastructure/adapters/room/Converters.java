@@ -1,4 +1,4 @@
-package com.rodolfo.cashflow.infrastructure.adapters;
+package com.rodolfo.cashflow.infrastructure.adapters.room;
 
 import androidx.room.TypeConverter;
 

@@ -1,9 +1,11 @@
-package com.rodolfo.cashflow.infrastructure.adapters;
+package com.rodolfo.cashflow.infrastructure.adapters.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.rodolfo.cashflow.domain.models.Usuario;
 
@@ -13,8 +15,14 @@ import java.util.List;
 @Dao
 public interface UsuarioDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     void insertar(Usuario usuario);
+
+    @Update
+    void actualizar(Usuario usuario);
+
+    @Delete
+    void borrar(Usuario usuario);
 
     @Query("SELECT * FROM usuarios")
     List<Usuario> obtenerTodos();

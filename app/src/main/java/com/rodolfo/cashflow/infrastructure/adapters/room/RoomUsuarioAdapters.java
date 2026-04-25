@@ -1,7 +1,8 @@
-package com.rodolfo.cashflow.infrastructure.adapters;
+package com.rodolfo.cashflow.infrastructure.adapters.room;
 
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.models.Usuario;
+import com.rodolfo.cashflow.infrastructure.adapters.dao.UsuarioDao;
 
 public class RoomUsuarioAdapters implements IUsuarioRepository {
 
@@ -18,7 +19,7 @@ public class RoomUsuarioAdapters implements IUsuarioRepository {
 
     @Override
     public void actualizar(Usuario usuario) {
-        dao.insertar(usuario);
+        dao.actualizar(usuario);
     }
 
     @Override

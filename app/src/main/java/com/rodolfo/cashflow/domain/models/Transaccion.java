@@ -2,6 +2,8 @@ package com.rodolfo.cashflow.domain.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.math.BigDecimal;
@@ -15,7 +17,27 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Entity(tableName = "transacciones")
+@Entity(
+        tableName = "transacciones",
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Usuario.class,
+                        parentColumns = "id",
+                        childColumns = "id_usuario_origen",
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Usuario.class,
+                        parentColumns = "id",
+                        childColumns = "id_usuario_destino",
+                        onDelete = ForeignKey.SET_NULL
+                )
+        },
+        indices = {
+                @Index("id_usuario_origen"),
+                @Index("id_usuario_destino")
+        }
+)
 public abstract class Transaccion {
 
     @PrimaryKey(autoGenerate = true)
@@ -43,19 +65,19 @@ public abstract class Transaccion {
     private String descripcion;
 
 
-    protected Transaccion (BigDecimal monto,
-                            String tipo,
-                            Integer idUsuarioOrigen,
-                            Integer idUsuarioDestino,
-                            String localExterno,
-                            String descripcion){
+    protected Transaccion(BigDecimal monto,
+                          String tipo,
+                          Integer idUsuarioOrigen,
+                          Integer idUsuarioDestino,
+                          String localExterno,
+                          String descripcion) {
 
         this.monto = monto;
         this.tipo = tipo;
         this.idUsuarioOrigen = idUsuarioOrigen;
         this.idUsuarioDestino = idUsuarioDestino;
         this.localExterno = localExterno;
-        this. descripcion = descripcion;
+        this.descripcion = descripcion;
         this.date = LocalDate.now();
     }
 
