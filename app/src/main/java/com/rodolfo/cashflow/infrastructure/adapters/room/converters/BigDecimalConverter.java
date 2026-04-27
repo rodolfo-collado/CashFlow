@@ -1,11 +1,10 @@
-package com.rodolfo.cashflow.infrastructure.adapters.room;
+package com.rodolfo.cashflow.infrastructure.adapters.room.converters;
 
 import androidx.room.TypeConverter;
 
 import java.math.BigDecimal;
 
-public class Converters {
-
+public class BigDecimalConverter {
     @TypeConverter
     public String fromBigDecimal(BigDecimal value){
         return value == null ? null : value.toString();
@@ -13,6 +12,6 @@ public class Converters {
 
     @TypeConverter
     public BigDecimal toBigDecimal(String value){
-      return value == null ? null : new BigDecimal(value);
+        return value == null ? null : new BigDecimal(value);
     }
 }

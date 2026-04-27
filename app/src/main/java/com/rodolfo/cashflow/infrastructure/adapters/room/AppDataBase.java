@@ -7,10 +7,14 @@ import androidx.room.TypeConverters;
 import com.rodolfo.cashflow.domain.models.Credenciales;
 import com.rodolfo.cashflow.domain.models.Transaccion;
 import com.rodolfo.cashflow.domain.models.Usuario;
+import com.rodolfo.cashflow.infrastructure.adapters.dao.CredencialesDao;
 import com.rodolfo.cashflow.infrastructure.adapters.dao.TransaccionDao;
 import com.rodolfo.cashflow.infrastructure.adapters.dao.UsuarioDao;
+import com.rodolfo.cashflow.infrastructure.adapters.room.converters.BigDecimalConverter;
+import com.rodolfo.cashflow.infrastructure.adapters.room.converters.DateConverter;
 
-@TypeConverters(Converters.class)
+
+@TypeConverters({BigDecimalConverter.class, DateConverter.class})
 @Database(entities = {Transaccion.class, Usuario.class, Credenciales.class}, version = 1) // Le indica a Room cuáles son las tablas
 public abstract class AppDataBase extends RoomDatabase {
 
