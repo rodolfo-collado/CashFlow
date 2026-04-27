@@ -5,18 +5,19 @@ import com.rodolfo.cashflow.domain.exceptions.CredencialesInvalidasException;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
 public class GestionUsuarioService implements IUsuarioService {
+
     @Override
-    public void eliminarUsuario(Integer id) {
+    public void eliminar(Integer id) {
 
     }
 
     @Override
-    public void registrarUsuario(Usuario usuario) {
+    public void registrar(Usuario usuario) {
 
     }
 
     @Override
-    public void actualizarUsuario(Usuario usuario) {
+    public void actualizar(Usuario usuario) {
 
     }
 

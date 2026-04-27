@@ -25,7 +25,7 @@ public class FlujoDineroService implements ISaldoService {
     }
 
     @Override
-    public void registrarTransferencia(Transaccion transferencia) {
+    public void registrarTransaccion(Transaccion transferencia) {
         Usuario usuarioOrigen = usuarioRepo.buscarUsuario(transferencia.getIdUsuarioOrigen());
         Usuario usuarioDestino = usuarioRepo.buscarUsuario(transferencia.getIdUsuarioDestino());
     }
