@@ -9,7 +9,7 @@ import androidx.room.Update;
 import com.rodolfo.cashflow.domain.models.Credenciales;
 
 @Dao
-public interface ICredencialesDao {
+public interface CredencialesDao {
 
 
     @Insert
@@ -20,6 +20,7 @@ public interface ICredencialesDao {
 
     @Delete
     void borrar(Integer id);
+
     @Query("SELECT * FROM credenciales WHERE id = :id")
     Credenciales buscarPorId(Integer id);
 

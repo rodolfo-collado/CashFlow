@@ -24,11 +24,8 @@ public interface UsuarioDao {
     @Delete
     void borrar(Usuario usuario);
 
-    @Query("SELECT * FROM usuarios")
-    List<Usuario> obtenerTodos();
-
     @Query("DELETE FROM usuarios WHERE id = :id")
-    void eliminarPorId(Integer id);
+    void borrarPorId(Integer id);
 
     @Query("SELECT * FROM usuarios WHERE id = :id")
     Usuario obtenerUsuarioPorId(Integer id);
@@ -36,6 +33,7 @@ public interface UsuarioDao {
     @Query("SELECT saldo_Total FROM usuarios WHERE id = :id")
     BigDecimal obtenerSaldoPorId(Integer id);
 
-
+    @Query("SELECT * FROM usuarios")
+    List<Usuario> obtenerTodos();
 
 }

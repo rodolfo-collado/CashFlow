@@ -21,4 +21,5 @@ public abstract class AppDataBase extends RoomDatabase {
     // Room genera el código automáticamente
     public abstract TransaccionDao transaccionDao();
     public abstract UsuarioDao usuarioDao();
+    public abstract CredencialesDao credencialesDao();
 }
