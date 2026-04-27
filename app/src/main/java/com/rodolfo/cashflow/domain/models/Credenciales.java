@@ -29,10 +29,10 @@ import lombok.ToString;
 )
 public class Credenciales {
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Long id;
 
     @ColumnInfo(name = "usuario_id")
-    private Integer usuarioId;
+    private Long usuarioId;
 
     @ColumnInfo(name = "username")
     private String username;

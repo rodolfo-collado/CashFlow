@@ -20,7 +20,7 @@ import lombok.ToString;
 @Entity(tableName = "usuarios")
 public class Usuario {
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Long id;
 
     @ColumnInfo(name = "nombre")
     private String nombre;

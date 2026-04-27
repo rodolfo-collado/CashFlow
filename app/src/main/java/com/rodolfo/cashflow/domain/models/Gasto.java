@@ -15,7 +15,7 @@ public class Gasto extends Transaccion{
 
 
     public Gasto (BigDecimal monto,
-                          Integer usuario_origen,
+                          Long usuario_origen,
                           String descripcion) {
 
         super(monto, "GASTO", usuario_origen, null, "DEFECTO", descripcion);

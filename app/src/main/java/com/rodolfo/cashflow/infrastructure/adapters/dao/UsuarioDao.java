@@ -16,7 +16,7 @@ import java.util.List;
 public interface UsuarioDao {
 
     @Insert
-    void insertar(Usuario usuario);
+    long insertar(Usuario usuario);
 
     @Update
     void actualizar(Usuario usuario);
@@ -25,13 +25,13 @@ public interface UsuarioDao {
     void borrar(Usuario usuario);
 
     @Query("DELETE FROM usuarios WHERE id = :id")
-    void borrarPorId(Integer id);
+    void borrarPorId(Long id);
 
     @Query("SELECT * FROM usuarios WHERE id = :id")
-    Usuario obtenerUsuarioPorId(Integer id);
+    Usuario obtenerUsuarioPorId(Long id);
 
     @Query("SELECT saldo_Total FROM usuarios WHERE id = :id")
-    BigDecimal obtenerSaldoPorId(Integer id);
+    BigDecimal obtenerSaldoPorId(Long id);
 
     @Query("SELECT * FROM usuarios")
     List<Usuario> obtenerTodos();

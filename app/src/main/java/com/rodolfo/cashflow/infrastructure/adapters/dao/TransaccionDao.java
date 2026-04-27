@@ -14,15 +14,14 @@ import java.util.List;
 public interface TransaccionDao {
 
     @Insert
-    void insertar(Transaccion transaccion);
+    long insertar(Transaccion transaccion);
 
     @Update
     void actualizar(Transaccion transaccion);
 
     @Query("DELETE FROM transacciones WHERE id = :id")
-    void eliminarPorId(Integer id);
+    void eliminarPorId(Long id);
 
-    @Query("SELECT * FROM transacciones")
     List<Transaccion> obtenerTodas();
 
     @Query("SELECT * FROM transacciones WHERE tipo = 'GASTO'")

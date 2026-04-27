@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ITransaccionRepository {
 
-    void insertar(Transaccion transaccion);
+    Long insertar(Transaccion transaccion);
 
     void actualizar(Transaccion transaccion);
 
-    void borrar(int id);
+    void borrarPorId(Long id);
 
     List<Transaccion> obtenerGastos();
 

@@ -13,16 +13,16 @@ public interface CredencialesDao {
 
 
     @Insert
-    void insertar(Credenciales credenciales);
+    long insertar(Credenciales credenciales);
 
     @Update
     void actualizar(Credenciales credenciales);
 
     @Delete
-    void borrar(Integer id);
+    void borrar(Long id);
 
     @Query("SELECT * FROM credenciales WHERE id = :id")
-    Credenciales buscarPorId(Integer id);
+    Credenciales buscarPorId(Long id);
 
     @Query("SELECT * FROM credenciales WHERE username = :username")
     Credenciales buscarPorUsername(String username);

@@ -12,8 +12,8 @@ public class RoomUsuarioAdapters implements IUsuarioRepository {
     }
 
     @Override
-    public void insertar(Usuario usuario) {
-        dao.insertar(usuario);
+    public Long insertar(Usuario usuario) {
+        return dao.insertar(usuario);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class RoomUsuarioAdapters implements IUsuarioRepository {
     }
 
     @Override
-    public void borrarPorId(Integer id) {
+    public void borrarPorId(Long id) {
         dao.borrarPorId(id);
     }
 
@@ -32,7 +32,7 @@ public class RoomUsuarioAdapters implements IUsuarioRepository {
     }
 
     @Override
-    public Usuario buscarUsuario(Integer id) {
+    public Usuario buscarUsuario(Long id) {
         return dao.obtenerUsuarioPorId(id);
     }
 

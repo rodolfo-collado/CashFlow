@@ -4,13 +4,13 @@ import com.rodolfo.cashflow.domain.models.Credenciales;
 
 public interface ICredencialesRepository {
 
-    void insertar(Credenciales credenciales);
+    Long insertar(Credenciales credenciales);
 
     void actualizar(Credenciales credenciales);
 
-    void borrar(Integer id);
+    void borrar(Long id);
 
-    Credenciales buscarPorId(Integer id);
+    Credenciales buscarPorId(Long id);
 
     Credenciales buscarPorUsername(String username);
 

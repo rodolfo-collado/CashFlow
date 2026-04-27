@@ -15,12 +15,12 @@ public class RoomTransaccionAdapters implements ITransaccionRepository {
     }
 
     @Override
-    public void insertar(Transaccion transaccion) {
-        dao.insertar(transaccion);
+    public Long insertar(Transaccion transaccion) {
+        return dao.insertar(transaccion);
     }
 
     @Override
-    public void borrar(int id) {
+    public void borrarPorId(Long id) {
         dao.eliminarPorId(id);
     }
 

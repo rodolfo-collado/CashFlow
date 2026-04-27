@@ -4,13 +4,13 @@ import com.rodolfo.cashflow.domain.models.Usuario;
 
 public interface IUsuarioRepository {
 
-    void insertar(Usuario usuario);
+    Long insertar(Usuario usuario);
     void actualizar(Usuario usuario);
 
     void borrar(Usuario usuario);
 
-    void borrarPorId(Integer id);
+    void borrarPorId(Long id);
 
-    Usuario buscarUsuario(Integer id);
+    Usuario buscarUsuario(Long id);
 
 }

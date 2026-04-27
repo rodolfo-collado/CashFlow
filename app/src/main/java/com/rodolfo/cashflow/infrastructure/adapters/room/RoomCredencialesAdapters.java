@@ -13,7 +13,7 @@ public class RoomCredencialesAdapters implements ICredencialesRepository {
     }
 
     @Override
-    public Credenciales buscarPorId(Integer id) {
+    public Credenciales buscarPorId(Long id) {
         return dao.buscarPorId(id);
     }
 
@@ -28,8 +28,8 @@ public class RoomCredencialesAdapters implements ICredencialesRepository {
     }
 
     @Override
-    public void insertar(Credenciales credenciales) {
-        dao.insertar(credenciales);
+    public Long insertar(Credenciales credenciales) {
+        return dao.insertar(credenciales);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class RoomCredencialesAdapters implements ICredencialesRepository {
     }
 
     @Override
-    public void borrar(Integer id) {
+    public void borrar(Long id) {
         dao.borrar(id);
     }
 }

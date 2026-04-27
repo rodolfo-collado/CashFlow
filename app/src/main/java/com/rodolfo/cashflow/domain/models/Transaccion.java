@@ -46,7 +46,7 @@ import lombok.ToString;
 public class Transaccion {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Long id;
 
     @ColumnInfo(name = "fecha")
     private LocalDate date;
@@ -58,10 +58,10 @@ public class Transaccion {
     private String tipo;
 
     @ColumnInfo(name = "id_usuario_origen")
-    private Integer idUsuarioOrigen;
+    private Long idUsuarioOrigen;
 
     @ColumnInfo(name = "id_usuario_destino")
-    private Integer idUsuarioDestino;
+    private Long idUsuarioDestino;
 
     @ColumnInfo(name = "local_externo")
     private String localExterno;
@@ -72,8 +72,8 @@ public class Transaccion {
 
     protected Transaccion(BigDecimal monto,
                           String tipo,
-                          Integer idUsuarioOrigen,
-                          Integer idUsuarioDestino,
+                          Long idUsuarioOrigen,
+                          Long idUsuarioDestino,
                           String localExterno,
                           String descripcion) {
 
