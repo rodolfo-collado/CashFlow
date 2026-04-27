@@ -21,8 +21,5 @@ public class Gasto extends Transaccion{
         super(monto, "GASTO", usuario_origen, null, "DEFECTO", descripcion);
 
     }
-    @Override
-    public String getDetails() {
-        return "";
-    }
+
 }

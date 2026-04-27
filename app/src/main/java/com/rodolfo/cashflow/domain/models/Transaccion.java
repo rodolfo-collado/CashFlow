@@ -9,7 +9,9 @@ import androidx.room.PrimaryKey;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -17,6 +19,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(
         tableName = "transacciones",
         foreignKeys = {
@@ -35,10 +39,11 @@ import lombok.ToString;
         },
         indices = {
                 @Index("id_usuario_origen"),
-                @Index("id_usuario_destino")
+                @Index("id_usuario_destino"),
+                @Index("fecha")
         }
 )
-public abstract class Transaccion {
+public class Transaccion {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
@@ -81,5 +86,4 @@ public abstract class Transaccion {
         this.date = LocalDate.now();
     }
 
-    public abstract String getDetails();
 }

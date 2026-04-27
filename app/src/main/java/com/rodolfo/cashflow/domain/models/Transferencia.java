@@ -21,8 +21,5 @@ public class Transferencia extends Transaccion{
 
         super(monto, "TRANSFERENCIA", usuario_origen, usuario_destino, null, descripcion);
     }
-    @Override
-    public String getDetails() {
-        return "";
-    }
+
 }
