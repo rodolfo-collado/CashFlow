@@ -4,9 +4,7 @@ import com.rodolfo.cashflow.domain.models.Usuario;
 
 public interface IUsuarioService {
 
-    void eliminar(Integer id);
-
     void registrar(Usuario usuario);
-
+    void eliminar(Long id);
     void actualizar(Usuario usuario);
 }

@@ -32,7 +32,7 @@ public class RoomUsuarioAdapters implements IUsuarioRepository {
     }
 
     @Override
-    public Usuario buscarUsuario(Long id) {
+    public Usuario buscarPorId(Long id) {
         return dao.obtenerUsuarioPorId(id);
     }
 

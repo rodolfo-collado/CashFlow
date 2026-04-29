@@ -11,6 +11,6 @@ public interface IUsuarioRepository {
 
     void borrarPorId(Long id);
 
-    Usuario buscarUsuario(Long id);
+    Usuario buscarPorId(Long id);
 
 }
