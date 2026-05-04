@@ -34,6 +34,9 @@ public class Usuario {
     @ColumnInfo(name = "telefono")
     private Integer telefono;
 
+    @ColumnInfo(name = "direccion")
+    private String direccion;
+
     @ColumnInfo(name = "saldo_Total")
     private BigDecimal saldoTotal;
 }
