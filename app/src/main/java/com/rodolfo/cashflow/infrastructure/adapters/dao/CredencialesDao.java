@@ -27,7 +27,7 @@ public interface CredencialesDao {
     @Query("SELECT * FROM credenciales WHERE username = :username")
     Credenciales buscarPorUsername(String username);
 
-    @Query("SELECT * FROM credenciales WHERE token = :token")
+    @Query("SELECT * FROM credenciales WHERE session_token = :token")
     Credenciales buscarPorToken(String token);
 
 
