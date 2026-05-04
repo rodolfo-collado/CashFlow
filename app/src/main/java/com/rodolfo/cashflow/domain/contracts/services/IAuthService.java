@@ -4,9 +4,7 @@ import com.rodolfo.cashflow.domain.models.Usuario;
 
 public interface IAuthService {
 
-    Usuario iniciarSesion(String username, String password);
-
-    void registrar(Usuario usuario, String username, String password);
+    void registrar(Usuario usuario, String username, String password, String pin);
 
     Usuario iniciarSesion(String username, String password);
 
