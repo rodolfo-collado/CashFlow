@@ -13,7 +13,7 @@ public interface CredencialesDao {
 
 
     @Insert
-    long insertar(Credenciales credenciales);
+    Long insertar(Credenciales credenciales);
 
     @Update
     void actualizar(Credenciales credenciales);
