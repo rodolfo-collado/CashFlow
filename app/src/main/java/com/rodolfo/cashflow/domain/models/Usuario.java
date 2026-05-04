@@ -38,5 +38,5 @@ public class Usuario {
     private String direccion;
 
     @ColumnInfo(name = "saldo_Total")
-    private BigDecimal saldoTotal;
+    private BigDecimal saldoTotal = BigDecimal.ZERO;
 }
