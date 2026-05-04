@@ -59,6 +59,9 @@ public class AuthService implements IAuthService {
         return this.usuarioActual;
     }
 
+
+    // Validaciones
+
     private void validarDatosUsuario(Usuario usuario){
         if (usuario == null){
             throw new usuarioInvalidoException("El usuario es obligatorio.");
@@ -106,7 +109,7 @@ public class AuthService implements IAuthService {
         }
 
         if (pin == null || !pin.matches("\\d{4}")) {
-            throw new CredencialesInvalidasException("El PIN debe contener exactamente 4 digitos numericos.");
+            throw new CredencialesInvalidasException("El PIN debe contener 4 digitos numericos.");
         }
 
     }
@@ -148,5 +151,26 @@ public class AuthService implements IAuthService {
         }
 
         return user;
+    }
+    private void validarSesion(Usuario usuarioActual, String tokenSesionActual){
+        if(usuarioActual == null || tokenSesionActual == null){
+          throw new SesionInvalidaException("No hay una sesión activa válida.");
+        }
+    }
+
+    private void validarPassword(String password) {
+        Credenciales creds = credRepo.buscarPorId(usuarioActual.getId());
+
+        if (password == null || password.isBlank()) {
+            throw new CredencialesInvalidasException("La contraseña es obligatoria.");
+        }
+
+        if(creds == null){
+            throw new CredencialesInvalidasException("Credenciales inválidas. Error inesperado.");
+        }
+
+        if(!password.equals(creds.getPassword())){
+            throw new CredencialesInvalidasException("Contraseña inválida.");
+        }
     }
 }
