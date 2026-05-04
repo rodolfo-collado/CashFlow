@@ -8,6 +8,8 @@ public interface IAuthService {
 
     void registrar(Usuario usuario, String username, String password);
 
+    Usuario iniciarSesion(String username, String password);
+
     void cerrarSesion();
 
     boolean estaAutenticado();
