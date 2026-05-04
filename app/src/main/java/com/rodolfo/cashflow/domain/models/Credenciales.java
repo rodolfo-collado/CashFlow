@@ -6,6 +6,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +42,18 @@ public class Credenciales {
     @ColumnInfo(name = "password")
     private String password;
 
-    @ColumnInfo(name = "token")
+    @ColumnInfo(name = "session_token")
     private String token;
+
+    @ColumnInfo(name = "pin")
+    private String pin;
+
+    public Credenciales(Long usuarioId, String username, String password, String pin){
+        this.id = null;
+        this.usuarioId = usuarioId;
+        this.username = username;
+        this.password = password;
+        this.token = null;
+        this.pin = pin;
+    }
 }
