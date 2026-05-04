@@ -4,11 +4,16 @@ import com.rodolfo.cashflow.domain.contracts.repositories.ICredencialesRepositor
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.contracts.services.IAuthService;
 import com.rodolfo.cashflow.domain.exceptions.CredencialesInvalidasException;
+import com.rodolfo.cashflow.domain.exceptions.usuarioInvalidoException;
 import com.rodolfo.cashflow.domain.models.Credenciales;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
+import java.util.UUID;
+
 public class AuthService implements IAuthService {
 
+    private Usuario usuarioActual;
+    private String tokenSesionActual;
     private final ICredencialesRepository credRepo;
     private final IUsuarioRepository userRepo;
 
@@ -18,43 +23,130 @@ public class AuthService implements IAuthService {
     }
 
     @Override
-    public Usuario iniciarSesion(String username, String password) {
+    public void registrar(Usuario usuario, String username, String password, String pin) {
+        validarDatosUsuario(usuario);
+        validarDatosCredenciales(username, password, pin);
+        validarUsernameDisponible(username);
 
-        Credenciales creds = credRepo.buscarPorUsername(username);
-        if (creds == null || !creds.getPassword().equals(password)) { //TODO separar validaciones en un metodo a parte (o clase a parte)
-            throw new CredencialesInvalidasException("Nombre de usuario o contraseña incorrectos.");
-        }
-
-        Usuario user = userRepo.buscarPorId(creds.getUsuarioId());
-
-        if(user == null) {
-            throw new CredencialesInvalidasException("El usuario vinculado a estas credenciales no existe");
-        }
-
-        return user;
+        Long usuarioId = userRepo.insertar(usuario);
+        Credenciales credenciales = new Credenciales(usuarioId, username, password, pin);
+        credRepo.insertar(credenciales);
+        this.usuarioActual = usuario;
     }
 
     @Override
-    public void registrar(Usuario usuario, String username, String password) {
-        Credenciales creds = new Credenciales();
-        creds.setUsername(username);
-        creds.setPassword(password);
-        creds.setUsuarioId(userRepo.insertar(usuario)); //TODO crear token de inicio de sesión (credenciales) con JWT
-        credRepo.insertar(creds); // TODO crear token con UUID para las transacciones
+    public Usuario iniciarSesion(String username, String password) {
+        validarFormatoLogin(username, password);
+        Credenciales credenciales = obtenerCredencialesValidadas(username, password);
+        this.usuarioActual = obtenerUsuarioValidado(credenciales);
+        this.tokenSesionActual = UUID.randomUUID().toString();
+        return usuarioActual;
     }
 
     @Override
     public void cerrarSesion() {
-
+        this.usuarioActual = null;
+        this.tokenSesionActual = null;
     }
 
     @Override
     public boolean estaAutenticado() {
-        return false;
+        return this.usuarioActual != null;
     }
 
     @Override
     public Usuario obtenerUsuarioActual() {
-        return null;
+        return this.usuarioActual;
+    }
+
+    private void validarDatosUsuario(Usuario usuario){
+        if (usuario == null){
+            throw new usuarioInvalidoException("El usuario es obligatorio.");
+        }
+
+        if(usuario.getNombre() == null || usuario.getNombre().isBlank()){
+            throw new usuarioInvalidoException("El nombre es obligatorio.");
+        }
+
+        if(usuario.getApellido() == null || usuario.getApellido().isBlank()){
+            throw new usuarioInvalidoException("El apellido es obligatorio.");
+        }
+
+        if(usuario.getCorreo() == null || usuario.getCorreo().isBlank()){
+            throw new usuarioInvalidoException("El correo es obligatorio.");
+        }
+
+        if(usuario.getTelefono() == null){
+            throw new usuarioInvalidoException("El teléfono es obligatorio.");
+        }
+
+        if(usuario.getDireccion() == null || usuario.getDireccion().isBlank()){
+            throw new usuarioInvalidoException("La dirección es obligatoria.");
+        }
+    }
+
+    private void validarDatosCredenciales(String username, String password, String pin){
+        if(username == null || username.isBlank()){
+            throw new CredencialesInvalidasException("El usuario es obligatorio.");
+        }
+        if(password == null || password.isBlank()){
+            throw new CredencialesInvalidasException("La contraseña es obligatoria.");
+        }
+        if(password.length() < 12){
+            throw new CredencialesInvalidasException("La contraseña debe tener al menos 12 caracteres.");
+        }
+
+        boolean hasUppercase = password.chars().anyMatch(Character::isUpperCase);
+        boolean hasDigit = password.chars().anyMatch(Character::isDigit);
+        boolean hasSpecial = password.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
+
+        if(!hasUppercase || !hasDigit || !hasSpecial){
+            throw new CredencialesInvalidasException(
+                    "La contraseña debe contener al menos una letra mayúscula, un número y un carácter especial.");
+        }
+
+        if (pin == null || !pin.matches("\\d{4}")) {
+            throw new CredencialesInvalidasException("El PIN debe contener exactamente 4 digitos numericos.");
+        }
+
+    }
+
+    private void validarUsernameDisponible(String username){
+        if(credRepo.buscarPorUsername(username) != null){
+            throw new CredencialesInvalidasException("El usuario ya existe.");
+        }
+    }
+
+    private void validarFormatoLogin(String username, String password){
+        if(username == null || username.isBlank()){
+            throw new CredencialesInvalidasException("El usuario es obligatorio.");
+        }
+        if(password == null || password.isBlank()){
+            throw new CredencialesInvalidasException("La contraseña es obligatoria.");
+        }
+    }
+
+    private Credenciales obtenerCredencialesValidadas(String username, String password){
+        Credenciales creds = credRepo.buscarPorUsername(username);
+
+        if (creds == null) {
+            throw new CredencialesInvalidasException("Nombre de usuario o contraseña incorrectos.");
+        }
+
+        if (!creds.getPassword().equals(password)) {
+            throw new CredencialesInvalidasException("Nombre de usuario o contraseña incorrectos.");
+        }
+
+        return creds;
+    }
+
+    private Usuario obtenerUsuarioValidado(Credenciales creds){
+        Usuario user = userRepo.buscarPorId(creds.getUsuarioId());
+
+        if(user == null) {
+            throw new CredencialesInvalidasException("Nombre de usuario o contraseña incorrectos.");
+        }
+
+        return user;
     }
 }
