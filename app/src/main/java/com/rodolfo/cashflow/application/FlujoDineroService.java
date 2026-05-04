@@ -32,7 +32,7 @@ public class FlujoDineroService implements ISaldoService {
 
 
     @Override
-    public BigDecimal consultarSaldoActual(Integer id) {
+    public BigDecimal consultarSaldoActual(Long id) {
         return null;
     }
 

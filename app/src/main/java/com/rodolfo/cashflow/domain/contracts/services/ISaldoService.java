@@ -10,5 +10,5 @@ public interface ISaldoService {
 
     void registrarTransaccion(Transaccion transferencia);
 
-    BigDecimal consultarSaldoActual(Integer id);
+    BigDecimal consultarSaldoActual(Long id);
 }
