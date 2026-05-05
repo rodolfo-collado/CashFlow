@@ -10,6 +10,8 @@ public interface IAuthService {
 
     void cerrarSesion();
 
+    void eliminarCuenta(String password);
+
     boolean estaAutenticado();
 
     Usuario obtenerUsuarioActual();

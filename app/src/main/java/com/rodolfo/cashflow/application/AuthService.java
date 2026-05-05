@@ -50,6 +50,15 @@ public class AuthService implements IAuthService {
     }
 
     @Override
+    public void eliminarCuenta(String password) {
+        sesionValidator.validarSesion(this.usuarioActual, this.tokenSesionActual);
+        passwordValidator.validarPassword(this.usuarioActual, password);
+        userRepo.borrar(usuarioActual);
+        cerrarSesion();
+
+    }
+
+    @Override
     public boolean estaAutenticado() {
         return this.usuarioActual != null;
     }
