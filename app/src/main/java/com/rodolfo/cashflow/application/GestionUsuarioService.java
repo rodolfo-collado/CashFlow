@@ -1,9 +1,7 @@
 package com.rodolfo.cashflow.application;
 
-import com.rodolfo.cashflow.domain.contracts.repositories.ICredencialesRepository;
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.contracts.services.IUsuarioService;
-import com.rodolfo.cashflow.domain.exceptions.CredencialesInvalidasException;
 import com.rodolfo.cashflow.domain.exceptions.UsuarioNoEncontradoException;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
@@ -11,31 +9,25 @@ public class GestionUsuarioService implements IUsuarioService {
 
     private final IUsuarioRepository userRepo;
 
-    public GestionUsuarioService(IUsuarioRepository userRepo, ICredencialesRepository credRepo) {
+    public GestionUsuarioService(IUsuarioRepository userRepo) {
         this.userRepo = userRepo;
     }
 
     @Override
-    public void registrar(Usuario usuario) {
-        validarUsuario(usuario);
-        userRepo.insertar(usuario);
-    }
-
-    @Override
-    public void eliminar(Long id) {
-        Usuario usuario = userRepo.buscarPorId(id);
-        if(usuario != null){
-            userRepo.borrar(usuario);
-        }
-
+    public void cambiarCorreo(String password, String correo) {
 
     }
 
     @Override
-    public void actualizar(Usuario usuario) {
-        validarUsuario(usuario);
-        userRepo.actualizar(usuario);
+    public void cambiarTelefono(String password, Integer telefono) {
+
     }
+
+    @Override
+    public void cambiarDireccion(String password, String direccion) {
+
+    }
+
 
     private void validarUsuario(Usuario usuario){
         if (usuario == null){

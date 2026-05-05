@@ -1,10 +1,11 @@
 package com.rodolfo.cashflow.domain.contracts.services;
 
-import com.rodolfo.cashflow.domain.models.Usuario;
-
 public interface IUsuarioService {
 
-    void registrar(Usuario usuario);
-    void eliminar(Long id);
-    void actualizar(Usuario usuario);
+
+    void cambiarCorreo(String password, String correo);
+
+    void cambiarTelefono(String password, Integer telefono);
+
+    void cambiarDireccion(String password, String direccion);
 }
