@@ -1,51 +1,52 @@
 package com.rodolfo.cashflow.application.validators;
 
+import javax.inject.Inject;
+
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
-import com.rodolfo.cashflow.domain.exceptions.CredencialesInvalidasException;
-import com.rodolfo.cashflow.domain.exceptions.usuarioInvalidoException;
-import com.rodolfo.cashflow.domain.models.Credenciales;
+import com.rodolfo.cashflow.domain.exceptions.UsuarioInvalidoException;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
 public class UsuarioValidator {
     private final IUsuarioRepository userRepo;
 
+    @Inject
     public UsuarioValidator(IUsuarioRepository userRepo) {
         this.userRepo = userRepo;
     }
 
     public void validarDatosUsuario(Usuario usuario){
         if (usuario == null){
-            throw new usuarioInvalidoException("El usuario es obligatorio.");
+            throw new UsuarioInvalidoException("El usuario es obligatorio.");
         }
 
-        if(usuario.getNombre() == null || usuario.getNombre().isBlank()){
-            throw new usuarioInvalidoException("El nombre es obligatorio.");
-        }
-
-        if(usuario.getApellido() == null || usuario.getApellido().isBlank()){
-            throw new usuarioInvalidoException("El apellido es obligatorio.");
-        }
-
-        if(usuario.getCorreo() == null || usuario.getCorreo().isBlank()){
-            throw new usuarioInvalidoException("El correo es obligatorio.");
-        }
+        ValidatorUnits.validarCampoObligatorio(
+                usuario.getNombre(),
+                "El nombre es obligatorio.",
+                UsuarioInvalidoException::new
+        );
+        ValidatorUnits.validarCampoObligatorio(
+                usuario.getApellido(),
+                "El apellido es obligatorio.",
+                UsuarioInvalidoException::new
+        );
+        ValidatorUnits.validarCampoObligatorio(
+                usuario.getCorreo(),
+                "El correo es obligatorio.",
+                UsuarioInvalidoException::new
+        );
 
         if(usuario.getTelefono() == null){
-            throw new usuarioInvalidoException("El teléfono es obligatorio.");
+            throw new UsuarioInvalidoException("El teléfono es obligatorio.");
         }
 
-        if(usuario.getDireccion() == null || usuario.getDireccion().isBlank()){
-            throw new usuarioInvalidoException("La dirección es obligatoria.");
-        }
+        ValidatorUnits.validarCampoObligatorio(
+                usuario.getDireccion(),
+                "La dirección es obligatoria.",
+                UsuarioInvalidoException::new
+        );
     }
 
-    public Usuario obtenerUsuarioValidado(Credenciales creds){
-        Usuario user = userRepo.buscarPorId(creds.getUsuarioId());
+    public void validarFormatoUsuario(Usuario usuario){
 
-        if(user == null) {
-            throw new CredencialesInvalidasException("Nombre de usuario o contraseña incorrectos.");
-        }
-
-        return user;
     }
 }
