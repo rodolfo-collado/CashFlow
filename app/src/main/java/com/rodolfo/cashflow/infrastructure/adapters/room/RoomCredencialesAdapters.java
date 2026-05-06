@@ -12,20 +12,6 @@ public class RoomCredencialesAdapters implements ICredencialesRepository {
         this.dao = dao;
     }
 
-    @Override
-    public Credenciales buscarPorId(Long id) {
-        return dao.buscarPorId(id);
-    }
-
-    @Override
-    public Credenciales buscarPorUsername(String username) {
-        return dao.buscarPorUsername(username);
-    }
-
-    @Override
-    public Credenciales buscarPorToken(String token) {
-        return dao.buscarPorToken(token);
-    }
 
     @Override
     public Long insertar(Credenciales credenciales) {
@@ -38,7 +24,32 @@ public class RoomCredencialesAdapters implements ICredencialesRepository {
     }
 
     @Override
-    public void borrar(Long id) {
-        dao.borrar(id);
+    public void borrarPorUsuarioId(Long usuarioId) {
+        dao.borrarPorUsuarioId(usuarioId);
+    }
+
+    @Override
+    public Credenciales buscarPorUsuarioId(Long usuarioId) {
+        return dao.buscarPorUsuarioId(usuarioId);
+    }
+
+    @Override
+    public Credenciales buscarPorUsername(String username) {
+        return dao.buscarPorUsername(username);
+    }
+
+    @Override
+    public void cambiarUsername(Long usuarioId, String username) {
+        dao.cambiarUsername(usuarioId, username);
+    }
+
+    @Override
+    public void cambiarPassword(Long usuarioId, String password) {
+        dao.cambiarPassword(usuarioId, password);
+    }
+
+    @Override
+    public void cambiarPin(Long usuarioId, String pin) {
+        dao.cambiarPin(usuarioId, pin);
     }
 }
