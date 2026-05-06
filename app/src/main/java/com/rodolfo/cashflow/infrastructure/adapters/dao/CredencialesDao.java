@@ -27,8 +27,14 @@ public interface CredencialesDao {
     @Query("SELECT * FROM credenciales WHERE username = :username")
     Credenciales buscarPorUsername(String username);
 
-    @Query("SELECT * FROM credenciales WHERE session_token = :token")
-    Credenciales buscarPorToken(String token);
+    @Query("UPDATE credenciales SET username = :username WHERE usuario_id = :usuarioId")
+    void cambiarUsername(Long usuarioId, String username);
+
+    @Query("UPDATE credenciales SET password = :password WHERE usuario_id = :usuarioId")
+    void cambiarPassword(Long usuarioId, String password);
+
+    @Query("UPDATE credenciales SET pin = :pin WHERE usuario_id = :usuarioId")
+    void cambiarPin(Long usuarioId, String pin);
 
 
 
