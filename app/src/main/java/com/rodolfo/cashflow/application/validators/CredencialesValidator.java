@@ -1,5 +1,7 @@
 package com.rodolfo.cashflow.application.validators;
 
+import javax.inject.Inject;
+
 import com.rodolfo.cashflow.domain.contracts.repositories.ICredencialesRepository;
 import com.rodolfo.cashflow.domain.exceptions.CredencialesInvalidasException;
 import com.rodolfo.cashflow.domain.models.Credenciales;
@@ -8,6 +10,7 @@ import com.rodolfo.cashflow.domain.models.Usuario;
 public class CredencialesValidator {
     private final ICredencialesRepository credRepo;
 
+    @Inject
     public CredencialesValidator(ICredencialesRepository credRepo) {
         this.credRepo = credRepo;
     }

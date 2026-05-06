@@ -1,4 +1,6 @@
-package com.rodolfo.cashflow.application.segurity;
+package com.rodolfo.cashflow.application.security;
+
+import javax.inject.Inject;
 
 import com.rodolfo.cashflow.domain.contracts.repositories.ICredencialesRepository;
 import com.rodolfo.cashflow.domain.exceptions.CredencialesInvalidasException;
@@ -8,12 +10,13 @@ import com.rodolfo.cashflow.domain.models.Usuario;
 public class PasswordValidator {
     private final ICredencialesRepository credRepo;
 
+    @Inject
     public PasswordValidator(ICredencialesRepository credRepo) {
         this.credRepo = credRepo;
     }
 
     public void validarPassword(Usuario usuarioActual, String password) {
-        Credenciales creds = credRepo.buscarPorId(usuarioActual.getId());
+        Credenciales creds = credRepo.buscarPorUsuarioId(usuarioActual.getId());
 
         if (password == null || password.isBlank()) {
             throw new CredencialesInvalidasException("La contraseña es obligatoria.");
