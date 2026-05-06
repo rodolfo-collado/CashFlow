@@ -18,13 +18,13 @@ public interface CredencialesDao {
     @Update
     void actualizar(Credenciales credenciales);
 
-    @Delete
-    void borrar(Long id);
+    @Query("DELETE FROM credenciales WHERE usuario_id = :usuarioId")
+    void borrarPorUsuarioId(Long usuarioId);
 
-    @Query("SELECT * FROM credenciales WHERE id = :id")
-    Credenciales buscarPorId(Long id);
+    @Query("SELECT * FROM credenciales WHERE usuario_id = :usuarioId LIMIT 1")
+    Credenciales buscarPorUsuarioId(Long usuarioId);
 
-    @Query("SELECT * FROM credenciales WHERE username = :username")
+    @Query("SELECT * FROM credenciales WHERE username = :username LIMIT 1")
     Credenciales buscarPorUsername(String username);
 
     @Query("UPDATE credenciales SET username = :username WHERE usuario_id = :usuarioId")
