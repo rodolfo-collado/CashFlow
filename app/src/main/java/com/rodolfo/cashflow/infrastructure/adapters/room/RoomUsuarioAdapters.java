@@ -1,12 +1,17 @@
 package com.rodolfo.cashflow.infrastructure.adapters.room;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.models.Usuario;
 import com.rodolfo.cashflow.infrastructure.adapters.dao.UsuarioDao;
 
+@Singleton
 public class RoomUsuarioAdapters implements IUsuarioRepository {
     private final UsuarioDao dao;
 
+    @Inject
     public RoomUsuarioAdapters(UsuarioDao dao) {
         this.dao = dao;
     }

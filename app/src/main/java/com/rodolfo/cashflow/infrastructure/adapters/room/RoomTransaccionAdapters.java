@@ -1,5 +1,8 @@
 package com.rodolfo.cashflow.infrastructure.adapters.room;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import com.rodolfo.cashflow.domain.contracts.repositories.ITransaccionRepository;
 import com.rodolfo.cashflow.domain.models.Transaccion;
 import com.rodolfo.cashflow.infrastructure.adapters.dao.TransaccionDao;
@@ -7,9 +10,11 @@ import com.rodolfo.cashflow.infrastructure.adapters.dao.TransaccionDao;
 import java.time.LocalDate;
 import java.util.List;
 
+@Singleton
 public class RoomTransaccionAdapters implements ITransaccionRepository {
     private final TransaccionDao dao;
 
+    @Inject
     public RoomTransaccionAdapters(TransaccionDao dao) {
         this.dao = dao;
     }
