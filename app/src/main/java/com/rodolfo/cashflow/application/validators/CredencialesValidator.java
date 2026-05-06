@@ -13,12 +13,52 @@ public class CredencialesValidator {
     }
 
     public void validarDatosCredenciales(String username, String password, String pin){
-        if(username == null || username.isBlank()){
-            throw new CredencialesInvalidasException("El usuario es obligatorio.");
+        validarFormatoLogin(username, password);
+        validarFormatoUsername(username);
+        validarFormatoPassword(password);
+        validarFormatoPin(pin);
+
+    }
+
+    public void validarFormatoLogin(String username, String password){
+        ValidatorUnits.validarCampoObligatorio(
+                username,
+                "El usuario es obligatorio.",
+                CredencialesInvalidasException::new
+        );
+        ValidatorUnits.validarCampoObligatorio(
+                password,
+                "La contraseña es obligatoria.",
+                CredencialesInvalidasException::new
+        );
+
+    }
+
+    public void validarFormatoUsername(String username){
+        ValidatorUnits.validarCampoObligatorio(
+                username,
+                "El usuario es obligatorio.",
+                CredencialesInvalidasException::new
+        );
+
+        if(username.matches(".*[!@#$%^&*(),.?\":{}|<>].*")){
+            throw new CredencialesInvalidasException("USuario inválido.");
         }
-        if(password == null || password.isBlank()){
-            throw new CredencialesInvalidasException("La contraseña es obligatoria.");
+        if(username.length() < 8){
+            throw new CredencialesInvalidasException("Mínimo 8 caracteres.");
         }
+        if(username.length() > 40){
+            throw new CredencialesInvalidasException("Máximo 40 caracteres.");
+        }
+    }
+
+    public void validarFormatoPassword(String password){
+        ValidatorUnits.validarCampoObligatorio(
+                password,
+                "La contraseña es obligatoria.",
+                CredencialesInvalidasException::new
+        );
+
         if(password.length() < 12){
             throw new CredencialesInvalidasException("La contraseña debe tener al menos 12 caracteres.");
         }
@@ -31,11 +71,12 @@ public class CredencialesValidator {
             throw new CredencialesInvalidasException(
                     "La contraseña debe contener al menos una letra mayúscula, un número y un carácter especial.");
         }
+    }
 
+    public void validarFormatoPin(String pin){
         if (pin == null || !pin.matches("\\d{4}")) {
             throw new CredencialesInvalidasException("El PIN debe contener 4 digitos numericos.");
         }
-
     }
 
     public void validarUsernameDisponible(String username){
@@ -44,28 +85,8 @@ public class CredencialesValidator {
         }
     }
 
-    public void validarFormatoLogin(String username, String password){
-        if(username == null || username.isBlank()){
-            throw new CredencialesInvalidasException("El usuario es obligatorio.");
-        }
-        if(password == null || password.isBlank()){
-            throw new CredencialesInvalidasException("La contraseña es obligatoria.");
-        }
-    }
 
-    public Credenciales obtenerCredencialesValidadas(String username, String password){
-        Credenciales creds = credRepo.buscarPorUsername(username);
 
-        if (creds == null) {
-            throw new CredencialesInvalidasException("Nombre de usuario o contraseña incorrectos.");
-        }
-
-        if (!creds.getPassword().equals(password)) {
-            throw new CredencialesInvalidasException("Nombre de usuario o contraseña incorrectos.");
-        }
-
-        return creds;
-    }
 
 
 }
