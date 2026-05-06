@@ -1,14 +1,19 @@
 package com.rodolfo.cashflow.application;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.contracts.services.IUsuarioService;
 import com.rodolfo.cashflow.domain.exceptions.UsuarioNoEncontradoException;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
+@Singleton
 public class GestionUsuarioService implements IUsuarioService {
 
     private final IUsuarioRepository userRepo;
 
+    @Inject
     public GestionUsuarioService(IUsuarioRepository userRepo) {
         this.userRepo = userRepo;
     }

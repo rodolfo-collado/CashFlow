@@ -1,5 +1,8 @@
 package com.rodolfo.cashflow.application;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import com.rodolfo.cashflow.domain.contracts.services.ISaldoService;
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.contracts.repositories.ITransaccionRepository;
@@ -10,10 +13,12 @@ import com.rodolfo.cashflow.domain.models.Usuario;
 
 import java.math.BigDecimal;
 
+@Singleton
 public class FlujoDineroService implements ISaldoService {
     private final ITransaccionRepository transaccionRepo;
     private final IUsuarioRepository usuarioRepo;
 
+    @Inject
     public FlujoDineroService(ITransaccionRepository transaccionRepo, IUsuarioRepository usuarioRepo) {
         this.transaccionRepo = transaccionRepo;
         this.usuarioRepo = usuarioRepo;

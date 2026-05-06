@@ -1,7 +1,12 @@
 package com.rodolfo.cashflow.application;
 
-import com.rodolfo.cashflow.application.segurity.PasswordValidator;
-import com.rodolfo.cashflow.application.segurity.SesionValidator;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import com.rodolfo.cashflow.application.security.LoginValidator;
+import com.rodolfo.cashflow.application.security.PasswordValidator;
+import com.rodolfo.cashflow.application.security.SesionActual;
+import com.rodolfo.cashflow.application.security.SesionValidator;
 import com.rodolfo.cashflow.application.validators.CredencialesValidator;
 import com.rodolfo.cashflow.application.validators.UsuarioValidator;
 import com.rodolfo.cashflow.domain.contracts.repositories.ICredencialesRepository;
@@ -12,6 +17,7 @@ import com.rodolfo.cashflow.domain.models.Usuario;
 
 import java.util.UUID;
 
+@Singleton
 public class AuthService implements IAuthService {
 
     private final SesionActual sesionActual;
