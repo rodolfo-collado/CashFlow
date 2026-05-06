@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -47,6 +48,10 @@ dependencies {
     // Lombok
     compileOnly("org.projectlombok:lombok:1.18.44")
     annotationProcessor("org.projectlombok:lombok:1.18.44")
+
+    // Hilt
+    implementation(libs.hilt.android)
+    annotationProcessor(libs.hilt.compiler)
 
     // Si vas a usar Lombok en tus pruebas (Unit Tests)
     testCompileOnly("org.projectlombok:lombok:1.18.44")
