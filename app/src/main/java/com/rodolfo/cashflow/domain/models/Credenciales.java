@@ -42,9 +42,6 @@ public class Credenciales {
     @ColumnInfo(name = "password")
     private String password;
 
-    @ColumnInfo(name = "session_token")
-    private String token;
-
     @ColumnInfo(name = "pin")
     private String pin;
 
@@ -53,7 +50,6 @@ public class Credenciales {
         this.usuarioId = usuarioId;
         this.username = username;
         this.password = password;
-        this.token = null;
         this.pin = pin;
     }
 }

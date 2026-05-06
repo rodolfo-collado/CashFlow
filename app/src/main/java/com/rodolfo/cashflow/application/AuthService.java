@@ -7,9 +7,6 @@ import com.rodolfo.cashflow.application.validators.UsuarioValidator;
 import com.rodolfo.cashflow.domain.contracts.repositories.ICredencialesRepository;
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.contracts.services.IAuthService;
-import com.rodolfo.cashflow.domain.exceptions.CredencialesInvalidasException;
-import com.rodolfo.cashflow.domain.exceptions.SesionInvalidaException;
-import com.rodolfo.cashflow.domain.exceptions.usuarioInvalidoException;
 import com.rodolfo.cashflow.domain.models.Credenciales;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
@@ -17,19 +14,23 @@ import java.util.UUID;
 
 public class AuthService implements IAuthService {
 
-    private Usuario usuarioActual;
-    private String tokenSesionActual;
+    private final SesionActual sesionActual;
     private final ICredencialesRepository credRepo;
     private final IUsuarioRepository userRepo;
+    private final LoginValidator loginValidator;
     private final PasswordValidator passwordValidator;
     private final SesionValidator sesionValidator;
     private final CredencialesValidator credencialesValidator;
     private final UsuarioValidator usuarioValidator;
 
 
-    public AuthService(ICredencialesRepository credRepo, IUsuarioRepository userRepo, PasswordValidator passwordValidator, CredencialesValidator credencialesValidator, SesionValidator sesionValidator, UsuarioValidator usuarioValidator) {
+    @Inject
+    public AuthService(SesionActual sesionActual,
+                       ICredencialesRepository credRepo, IUsuarioRepository userRepo, LoginValidator loginValidator, PasswordValidator passwordValidator, CredencialesValidator credencialesValidator, SesionValidator sesionValidator, UsuarioValidator usuarioValidator) {
+        this.sesionActual = sesionActual;
         this.credRepo = credRepo;
         this.userRepo = userRepo;
+        this.loginValidator = loginValidator;
         this.passwordValidator = passwordValidator;
         this.credencialesValidator = credencialesValidator;
         this.sesionValidator = sesionValidator;
@@ -45,41 +46,41 @@ public class AuthService implements IAuthService {
         Long usuarioId = userRepo.insertar(usuario);
         Credenciales credenciales = new Credenciales(usuarioId, username, password, pin);
         credRepo.insertar(credenciales);
-        this.usuarioActual = usuario;
+        String token = UUID.randomUUID().toString();
+        sesionActual.iniciar(usuario, token);
     }
 
     @Override
     public Usuario iniciarSesion(String username, String password) {
         credencialesValidator.validarFormatoLogin(username, password);
-        Credenciales credenciales = credencialesValidator.obtenerCredencialesValidadas(username, password);
-        this.usuarioActual = usuarioValidator.obtenerUsuarioValidado(credenciales);
-        this.tokenSesionActual = UUID.randomUUID().toString();
-        return usuarioActual;
+        Credenciales credenciales = loginValidator.obtenerCredencialesValidadas(username, password);
+        Usuario usuario = loginValidator.obtenerUsuarioValidado(credenciales);
+        String token = UUID.randomUUID().toString();
+        sesionActual.iniciar(usuario, token);
+        return usuario;
     }
 
     @Override
     public void cerrarSesion() {
-        this.usuarioActual = null;
-        this.tokenSesionActual = null;
+        sesionActual.cerrar();
     }
 
     @Override
     public void eliminarCuenta(String password) {
-        sesionValidator.validarSesion(this.usuarioActual, this.tokenSesionActual);
-        passwordValidator.validarPassword(this.usuarioActual, password);
-        userRepo.borrar(usuarioActual);
+        sesionValidator.validarSesion(sesionActual.getUsuarioActual(), sesionActual.getTokenSesionActual());
+        passwordValidator.validarPassword(sesionActual.getUsuarioActual(), password);
+        userRepo.borrar(sesionActual.getUsuarioActual());
         cerrarSesion();
-
     }
 
     @Override
     public boolean estaAutenticado() {
-        return this.usuarioActual != null;
+        return sesionActual.isActiva();
     }
 
     @Override
     public Usuario obtenerUsuarioActual() {
-        return this.usuarioActual;
+        return sesionActual.getUsuarioActual();
     }
 
 }
