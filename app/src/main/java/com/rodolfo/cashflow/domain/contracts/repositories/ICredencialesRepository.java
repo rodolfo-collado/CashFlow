@@ -8,12 +8,17 @@ public interface ICredencialesRepository {
 
     void actualizar(Credenciales credenciales);
 
-    void borrar(Long id);
+    void borrarPorUsuarioId(Long usuarioId);
 
-    Credenciales buscarPorId(Long id);
+    Credenciales buscarPorUsuarioId(Long usuarioId);
 
     Credenciales buscarPorUsername(String username);
 
-    Credenciales buscarPorToken(String token);
+    void cambiarUsername(Long usuarioId, String username);
+
+    void cambiarPassword(Long usuarioId, String password);
+
+    void cambiarPin(Long usuarioId, String pin);
+
 
 }
