@@ -10,6 +10,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.rodolfo.cashflow.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     @Override
