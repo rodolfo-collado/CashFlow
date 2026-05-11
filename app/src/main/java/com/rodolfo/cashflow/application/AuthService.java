@@ -52,8 +52,7 @@ public class AuthService implements IAuthService {
         Long usuarioId = userRepo.insertar(usuario);
         Credenciales credenciales = new Credenciales(usuarioId, username, password, pin);
         credRepo.insertar(credenciales);
-        String token = UUID.randomUUID().toString();
-        sesionActual.iniciar(usuario, token);
+        sesionActual.iniciar(usuario);
     }
 
     @Override
@@ -61,8 +60,7 @@ public class AuthService implements IAuthService {
         credencialesValidator.validarFormatoLogin(username, password);
         Credenciales credenciales = loginValidator.obtenerCredencialesValidadas(username, password);
         Usuario usuario = loginValidator.obtenerUsuarioValidado(credenciales);
-        String token = UUID.randomUUID().toString();
-        sesionActual.iniciar(usuario, token);
+        sesionActual.iniciar(usuario);
         return usuario;
     }
 

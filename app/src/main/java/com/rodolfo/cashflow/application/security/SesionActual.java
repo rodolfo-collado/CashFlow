@@ -2,6 +2,8 @@ package com.rodolfo.cashflow.application.security;
 
 import com.rodolfo.cashflow.domain.models.Usuario;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -20,7 +22,8 @@ public class SesionActual {
     }
 
 
-    public void iniciar(Usuario usuario, String token) {
+    public void iniciar(Usuario usuario) {
+        String token = UUID.randomUUID().toString();
         this.usuarioActual = usuario;
         this.tokenSesionActual = token;
     }
