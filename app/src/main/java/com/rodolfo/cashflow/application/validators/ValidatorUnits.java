@@ -14,4 +14,14 @@ public class ValidatorUnits {
         }
     }
 
+    public static <T extends RuntimeException> void validarNoNulo(
+            Object valor,
+            String mensaje,
+            Function<String, T> exceptionFactory
+    ) {
+        if (valor == null) {
+            throw exceptionFactory.apply(mensaje);
+        }
+    }
+
 }
