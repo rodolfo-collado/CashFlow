@@ -32,7 +32,7 @@ public class Usuario {
     private String correo;
 
     @ColumnInfo(name = "telefono")
-    private Integer telefono;
+    private String telefono;
 
     @ColumnInfo(name = "direccion")
     private String direccion;
