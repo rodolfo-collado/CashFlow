@@ -45,7 +45,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public void registrar(Usuario usuario, String username, String password, String pin) {
-        usuarioValidator.validarDatosUsuario(usuario); //TODO hacer la validacion del telefono
+        usuarioValidator.validarDatosUsuario(usuario);
         credencialesValidator.validarDatosCredenciales(username, password, pin);
         credencialesValidator.validarUsernameDisponible(username);
 
@@ -71,7 +71,7 @@ public class AuthService implements IAuthService {
 
     @Override
     public void eliminarCuenta(String password) {
-        sesionValidator.validarSesion(sesionActual.getUsuarioActual(), sesionActual.getTokenSesionActual());
+        sesionValidator.validarSesion();
         passwordValidator.validarPassword(sesionActual.getUsuarioActual(), password);
         userRepo.borrar(sesionActual.getUsuarioActual());
         cerrarSesion();

@@ -30,10 +30,7 @@ public class GestionCredencialesService implements ICredencialesService {
 
     @Override
     public void cambiarUsername(String password, String username) {
-        sesionValidator.validarSesion(
-                sesionActual.getUsuarioActual(),
-                sesionActual.getTokenSesionActual());
-
+        sesionValidator.validarSesion();
         passwordValidator.validarPassword(sesionActual.getUsuarioActual(), password);
         credencialesValidator.validarUsernameDisponible(username);
         CredsRepo.cambiarUsername(sesionActual.getUsuarioActual().getId(), username);
@@ -41,20 +38,14 @@ public class GestionCredencialesService implements ICredencialesService {
 
     @Override
     public void cambiarPassword(String oldPassword, String newPassword) {
-    sesionValidator.validarSesion(
-            sesionActual.getUsuarioActual(),
-            sesionActual.getTokenSesionActual());
-
-    passwordValidator.validarPassword(sesionActual.getUsuarioActual(), oldPassword);
-    CredsRepo.cambiarPassword(sesionActual.getUsuarioActual().getId(), newPassword);
+        sesionValidator.validarSesion();
+        passwordValidator.validarPassword(sesionActual.getUsuarioActual(), oldPassword);
+        CredsRepo.cambiarPassword(sesionActual.getUsuarioActual().getId(), newPassword);
     }
 
     @Override
     public void cambiarPin(String password, String pin) {
-        sesionValidator.validarSesion(
-                sesionActual.getUsuarioActual(),
-                sesionActual.getTokenSesionActual());
-
+        sesionValidator.validarSesion();
         passwordValidator.validarPassword(sesionActual.getUsuarioActual(), password);
         CredsRepo.cambiarPin(sesionActual.getUsuarioActual().getId(), pin);
     }
