@@ -7,46 +7,55 @@ import com.rodolfo.cashflow.domain.exceptions.UsuarioInvalidoException;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
 public class UsuarioValidator {
-    private final IUsuarioRepository userRepo;
 
     @Inject
-    public UsuarioValidator(IUsuarioRepository userRepo) {
-        this.userRepo = userRepo;
-    }
+    public UsuarioValidator() {}
 
     public void validarDatosUsuario(Usuario usuario){
-        if (usuario == null){
-            throw new UsuarioInvalidoException("El usuario es obligatorio.");
-        }
+        validarUsuarioNoNulo(usuario);
+        validarFormatoNombres(usuario);
+        validarFormatoApellidos(usuario);
+        validarFormatoCorreo(usuario);
+        validarFormatoTelefono(usuario);
+        validarFormatoDireccion(usuario);
+    }
 
+    public void validarUsuarioNoNulo(Usuario usuario){
+        ValidatorUnits.validarNoNulo(usuario,
+                "El usuario es obligatorio.",
+                UsuarioInvalidoException::new);
+    }
+
+    public void validarFormatoNombres(Usuario usuario){
         ValidatorUnits.validarCampoObligatorio(
                 usuario.getNombre(),
                 "El nombre es obligatorio.",
-                UsuarioInvalidoException::new
-        );
+                UsuarioInvalidoException::new);
+    }
+
+    public void validarFormatoApellidos(Usuario usuario){
         ValidatorUnits.validarCampoObligatorio(
                 usuario.getApellido(),
                 "El apellido es obligatorio.",
-                UsuarioInvalidoException::new
-        );
-        ValidatorUnits.validarCampoObligatorio(
-                usuario.getCorreo(),
+                UsuarioInvalidoException::new);
+    }
+
+    public void validarFormatoCorreo(Usuario usuario){
+        ValidatorUnits.validarCampoObligatorio(usuario.getCorreo(),
                 "El correo es obligatorio.",
-                UsuarioInvalidoException::new
-        );
+                UsuarioInvalidoException::new);
+    }
 
-        if(usuario.getTelefono() == null){
-            throw new UsuarioInvalidoException("El teléfono es obligatorio.");
-        }
+    public void validarFormatoTelefono(Usuario usuario){
+        ValidatorUnits.validarCampoObligatorio(usuario.getTelefono(),
+                "El teléfono es obligatorio.",
+                UsuarioInvalidoException::new);
+    }
 
+    public void validarFormatoDireccion(Usuario usuario){
         ValidatorUnits.validarCampoObligatorio(
                 usuario.getDireccion(),
                 "La dirección es obligatoria.",
-                UsuarioInvalidoException::new
-        );
-    }
-
-    public void validarFormatoUsuario(Usuario usuario){
-
+                UsuarioInvalidoException::new);
     }
 }
