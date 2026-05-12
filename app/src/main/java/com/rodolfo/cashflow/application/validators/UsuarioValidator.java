@@ -2,7 +2,6 @@ package com.rodolfo.cashflow.application.validators;
 
 import javax.inject.Inject;
 
-import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.exceptions.UsuarioInvalidoException;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
@@ -13,11 +12,11 @@ public class UsuarioValidator {
 
     public void validarDatosUsuario(Usuario usuario){
         validarUsuarioNoNulo(usuario);
-        validarFormatoNombres(usuario);
-        validarFormatoApellidos(usuario);
-        validarFormatoCorreo(usuario);
-        validarFormatoTelefono(usuario);
-        validarFormatoDireccion(usuario);
+        validarFormatoNombres(usuario.getNombre());
+        validarFormatoApellidos(usuario.getApellido());
+        validarFormatoCorreo(usuario.getCorreo());
+        validarFormatoTelefono(usuario.getTelefono());
+        validarFormatoDireccion(usuario.getDireccion());
     }
 
     public void validarUsuarioNoNulo(Usuario usuario){
@@ -26,31 +25,44 @@ public class UsuarioValidator {
                 UsuarioInvalidoException::new);
     }
 
-    public void validarFormatoNombres(Usuario usuario){
+    public void validarFormatoNombres(String nombre){
         ValidatorUnits.validarCampoObligatorio(
-                usuario.getNombre(),
+                nombre,
                 "El nombre es obligatorio.",
                 UsuarioInvalidoException::new);
     }
 
-    public void validarFormatoApellidos(Usuario usuario){
+    public void validarFormatoApellidos(String apellido){
         ValidatorUnits.validarCampoObligatorio(
-                usuario.getApellido(),
+                apellido,
                 "El apellido es obligatorio.",
                 UsuarioInvalidoException::new);
     }
 
-    public void validarFormatoCorreo(String correo){
+    private String limpiarCorreo(String correo) {
         ValidatorUnits.validarCampoObligatorio(
                 correo,
                 "El correo es obligatorio.",
-                UsuarioInvalidoException::new);
+                UsuarioInvalidoException::new
+        );
+        return correo.trim();
+    }
 
-        String correoLimpio = correo.trim();
-
-        if(!correoLimpio.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
+    private void validarCorreoLimpio(String correoLimpio) {
+        if (!correoLimpio.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             throw new UsuarioInvalidoException("Formato de correo inválido.");
         }
+    }
+
+    public void validarFormatoCorreo(String correo) {
+        String correoLimpio = limpiarCorreo(correo);
+        validarCorreoLimpio(correoLimpio);
+    }
+
+    public String normalizarCorreo(String correo) {
+        String correoLimpio = limpiarCorreo(correo);
+        validarCorreoLimpio(correoLimpio);
+        return correoLimpio;
     }
 
     public void validarFormatoTelefono(String telefono){
@@ -67,14 +79,23 @@ public class UsuarioValidator {
     }
 
     public String normalizarTelefono(String telefono) {
+        validarFormatoTelefono(telefono);
         String telefonoLimpio = telefono.trim().replaceAll("[\\s-]", "");
         return telefonoLimpio.substring(0, 4) + "-" + telefonoLimpio.substring(4);
     }
 
     public void validarFormatoDireccion(String direccion){
         ValidatorUnits.validarCampoObligatorio(
-                usuario.getDireccion(),
+                direccion,
                 "La dirección es obligatoria.",
                 UsuarioInvalidoException::new);
+
+        if(direccion.trim().length() < 10){
+            throw new UsuarioInvalidoException("La dirección debe tener al menos 10 caracteres.");
+        }
+
+        if (direccion.trim().length() > 120){
+            throw new UsuarioInvalidoException("La dirección debe tener como máximo 120 caracteres.");
+        }
     }
 }
