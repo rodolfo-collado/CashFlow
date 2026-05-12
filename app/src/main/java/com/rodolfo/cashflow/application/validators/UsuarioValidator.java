@@ -40,19 +40,38 @@ public class UsuarioValidator {
                 UsuarioInvalidoException::new);
     }
 
-    public void validarFormatoCorreo(Usuario usuario){
-        ValidatorUnits.validarCampoObligatorio(usuario.getCorreo(),
+    public void validarFormatoCorreo(String correo){
+        ValidatorUnits.validarCampoObligatorio(
+                correo,
                 "El correo es obligatorio.",
                 UsuarioInvalidoException::new);
+
+        String correoLimpio = correo.trim();
+
+        if(!correoLimpio.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
+            throw new UsuarioInvalidoException("Formato de correo inválido.");
+        }
     }
 
-    public void validarFormatoTelefono(Usuario usuario){
-        ValidatorUnits.validarCampoObligatorio(usuario.getTelefono(),
+    public void validarFormatoTelefono(String telefono){
+        ValidatorUnits.validarCampoObligatorio(
+                telefono,
                 "El teléfono es obligatorio.",
                 UsuarioInvalidoException::new);
+
+        String telefonoLimpio = telefono.trim();
+
+        if (!telefonoLimpio.matches("^\\d{4}[-\\s]?\\d{4}$")) {
+            throw new UsuarioInvalidoException("Formato de teléfono inválido.");
+        }
     }
 
-    public void validarFormatoDireccion(Usuario usuario){
+    public String normalizarTelefono(String telefono) {
+        String telefonoLimpio = telefono.trim().replaceAll("[\\s-]", "");
+        return telefonoLimpio.substring(0, 4) + "-" + telefonoLimpio.substring(4);
+    }
+
+    public void validarFormatoDireccion(String direccion){
         ValidatorUnits.validarCampoObligatorio(
                 usuario.getDireccion(),
                 "La dirección es obligatoria.",
