@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.rodolfo.cashflow.domain.models.Transaccion;
+import com.rodolfo.cashflow.infrastructure.adapters.room.entities.TransaccionEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,25 +14,26 @@ import java.util.List;
 public interface TransaccionDao {
 
     @Insert
-    Long insertar(Transaccion transaccion);
+    Long insertar(TransaccionEntity transaccion);
 
     @Update
-    void actualizar(Transaccion transaccion);
+    void actualizar(TransaccionEntity transaccion);
 
     @Query("DELETE FROM transacciones WHERE id = :id")
     void eliminarPorId(Long id);
 
-    List<Transaccion> obtenerTodas();
+    @Query("SELECT * FROM transacciones")
+    List<TransaccionEntity> obtenerTodas();
 
     @Query("SELECT * FROM transacciones WHERE tipo = 'GASTO'")
-    List<Transaccion> obtenerSoloGastos();
+    List<TransaccionEntity> obtenerSoloGastos();
 
     @Query("SELECT * FROM transacciones WHERE tipo = 'TRANSFERENCIA'")
-    List<Transaccion> obtenerSoloTransferencias();
+    List<TransaccionEntity> obtenerSoloTransferencias();
 
     @Query("SELECT * FROM transacciones WHERE fecha = :fecha")
-    List<Transaccion> obtenerPorFecha(LocalDate fecha);
+    List<TransaccionEntity> obtenerPorFecha(LocalDate fecha);
 
     @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :inicio AND :fin")
-    List<Transaccion> obtenerRangoFechas(LocalDate inicio, LocalDate fin);
+    List<TransaccionEntity> obtenerRangoFechas(LocalDate inicio, LocalDate fin);
 }

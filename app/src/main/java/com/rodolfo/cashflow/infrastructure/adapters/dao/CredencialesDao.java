@@ -1,31 +1,30 @@
 package com.rodolfo.cashflow.infrastructure.adapters.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.rodolfo.cashflow.domain.models.Credenciales;
+import com.rodolfo.cashflow.infrastructure.adapters.room.entities.CredencialesEntity;
 
 @Dao
 public interface CredencialesDao {
 
 
     @Insert
-    Long insertar(Credenciales credenciales);
+    Long insertar(CredencialesEntity credenciales);
 
     @Update
-    void actualizar(Credenciales credenciales);
+    void actualizar(CredencialesEntity credenciales);
 
     @Query("DELETE FROM credenciales WHERE usuario_id = :usuarioId")
     void borrarPorUsuarioId(Long usuarioId);
 
     @Query("SELECT * FROM credenciales WHERE usuario_id = :usuarioId LIMIT 1")
-    Credenciales buscarPorUsuarioId(Long usuarioId);
+    CredencialesEntity buscarPorUsuarioId(Long usuarioId);
 
     @Query("SELECT * FROM credenciales WHERE username = :username LIMIT 1")
-    Credenciales buscarPorUsername(String username);
+    CredencialesEntity buscarPorUsername(String username);
 
     @Query("UPDATE credenciales SET username = :username WHERE usuario_id = :usuarioId")
     void cambiarUsername(Long usuarioId, String username);

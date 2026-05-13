@@ -7,7 +7,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.rodolfo.cashflow.domain.models.Usuario;
+
+import com.rodolfo.cashflow.infrastructure.adapters.room.entities.UsuarioEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,24 +17,24 @@ import java.util.List;
 public interface UsuarioDao {
 
     @Insert
-    Long insertar(Usuario usuario);
+    Long insertar(UsuarioEntity usuario);
 
     @Update
-    void actualizar(Usuario usuario);
+    void actualizar(UsuarioEntity usuario);
 
     @Delete
-    void borrar(Usuario usuario);
+    void borrar(UsuarioEntity usuario);
 
     @Query("DELETE FROM usuarios WHERE id = :id")
     void borrarPorId(Long id);
 
     @Query("SELECT * FROM usuarios WHERE id = :id")
-    Usuario obtenerUsuarioPorId(Long id);
+    UsuarioEntity obtenerUsuarioPorId(Long id);
 
     @Query("SELECT saldo_Total FROM usuarios WHERE id = :id")
     BigDecimal obtenerSaldoPorId(Long id);
 
     @Query("SELECT * FROM usuarios")
-    List<Usuario> obtenerTodos();
+    List<UsuarioEntity> obtenerTodos();
 
 }
