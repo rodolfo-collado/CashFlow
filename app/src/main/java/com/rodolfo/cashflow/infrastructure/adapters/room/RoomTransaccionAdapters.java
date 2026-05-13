@@ -6,6 +6,8 @@ import javax.inject.Singleton;
 import com.rodolfo.cashflow.domain.contracts.repositories.ITransaccionRepository;
 import com.rodolfo.cashflow.domain.models.Transaccion;
 import com.rodolfo.cashflow.infrastructure.adapters.dao.TransaccionDao;
+import com.rodolfo.cashflow.infrastructure.adapters.room.entities.TransaccionEntity;
+import com.rodolfo.cashflow.infrastructure.adapters.room.mappers.TransaccionMapper;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +23,8 @@ public class RoomTransaccionAdapters implements ITransaccionRepository {
 
     @Override
     public Long insertar(Transaccion transaccion) {
-        return dao.insertar(transaccion);
+        TransaccionEntity entity =TransaccionMapper.toEntity(transaccion);
+        return dao.insertar(entity);
     }
 
     @Override
@@ -31,33 +34,35 @@ public class RoomTransaccionAdapters implements ITransaccionRepository {
 
     @Override
     public void actualizar(Transaccion transaccion) {
-        dao.actualizar(transaccion);
+        TransaccionEntity entity = TransaccionMapper.toEntity(transaccion);
+        dao.actualizar(entity);
     }
 
     @Override
     public List<Transaccion> obtenerTodas() {
-        return dao.obtenerTodas();
+        return TransaccionMapper.toDomain(dao.obtenerTodas());
+
     }
 
 
     @Override
     public List<Transaccion> obtenerGastos() {
-        return dao.obtenerSoloGastos();
+        return TransaccionMapper.toDomain(dao.obtenerSoloGastos());
     }
 
     @Override
     public List<Transaccion> obtenerTransferencias() {
-        return dao.obtenerSoloTransferencias();
+        return TransaccionMapper.toDomain(dao.obtenerSoloTransferencias());
     }
 
     @Override
     public List<Transaccion> obtenerPorFecha(LocalDate fecha) {
-        return dao.obtenerPorFecha(fecha);
+        return TransaccionMapper.toDomain(dao.obtenerPorFecha(fecha));
     }
 
     @Override
     public List<Transaccion> obtenerRangoFecha(LocalDate inicio, LocalDate fin) {
-        return dao.obtenerRangoFechas(inicio, fin);
+        return TransaccionMapper.toDomain(dao.obtenerRangoFechas(inicio, fin));
     }
 
 

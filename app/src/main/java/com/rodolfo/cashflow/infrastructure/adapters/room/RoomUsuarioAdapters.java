@@ -6,6 +6,8 @@ import javax.inject.Singleton;
 import com.rodolfo.cashflow.domain.contracts.repositories.IUsuarioRepository;
 import com.rodolfo.cashflow.domain.models.Usuario;
 import com.rodolfo.cashflow.infrastructure.adapters.dao.UsuarioDao;
+import com.rodolfo.cashflow.infrastructure.adapters.room.entities.UsuarioEntity;
+import com.rodolfo.cashflow.infrastructure.adapters.room.mappers.UsuarioMapper;
 
 @Singleton
 public class RoomUsuarioAdapters implements IUsuarioRepository {
@@ -18,12 +20,14 @@ public class RoomUsuarioAdapters implements IUsuarioRepository {
 
     @Override
     public Long insertar(Usuario usuario) {
-        return dao.insertar(usuario);
+        UsuarioEntity entity = UsuarioMapper.toEntity(usuario);
+        return dao.insertar(entity);
     }
 
     @Override
     public void actualizar(Usuario usuario) {
-        dao.actualizar(usuario);
+        UsuarioEntity entity = UsuarioMapper.toEntity(usuario);
+        dao.actualizar(entity);
     }
 
     @Override
@@ -33,12 +37,13 @@ public class RoomUsuarioAdapters implements IUsuarioRepository {
 
     @Override
     public void borrar(Usuario usuario) {
-        dao.borrar(usuario);
+        UsuarioEntity entity = UsuarioMapper.toEntity(usuario);
+        dao.borrar(entity);
     }
 
     @Override
     public Usuario buscarPorId(Long id) {
-        return dao.obtenerUsuarioPorId(id);
+        return UsuarioMapper.toDomain(dao.obtenerUsuarioPorId(id));
     }
 
 

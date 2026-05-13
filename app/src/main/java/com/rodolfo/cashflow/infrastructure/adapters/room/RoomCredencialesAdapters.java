@@ -6,6 +6,8 @@ import javax.inject.Singleton;
 import com.rodolfo.cashflow.domain.contracts.repositories.ICredencialesRepository;
 import com.rodolfo.cashflow.domain.models.Credenciales;
 import com.rodolfo.cashflow.infrastructure.adapters.dao.CredencialesDao;
+import com.rodolfo.cashflow.infrastructure.adapters.room.entities.CredencialesEntity;
+import com.rodolfo.cashflow.infrastructure.adapters.room.mappers.CredencialesMapper;
 
 @Singleton
 public class RoomCredencialesAdapters implements ICredencialesRepository {
@@ -19,12 +21,14 @@ public class RoomCredencialesAdapters implements ICredencialesRepository {
 
     @Override
     public Long insertar(Credenciales credenciales) {
-        return dao.insertar(credenciales);
+        CredencialesEntity entity = CredencialesMapper.toEntity(credenciales);
+        return dao.insertar(entity);
     }
 
     @Override
     public void actualizar(Credenciales credenciales) {
-        dao.actualizar(credenciales);
+        CredencialesEntity entity = CredencialesMapper.toEntity(credenciales);
+        dao.actualizar(entity);
     }
 
     @Override
@@ -34,12 +38,14 @@ public class RoomCredencialesAdapters implements ICredencialesRepository {
 
     @Override
     public Credenciales buscarPorUsuarioId(Long usuarioId) {
-        return dao.buscarPorUsuarioId(usuarioId);
+        CredencialesEntity entity = dao.buscarPorUsuarioId(usuarioId);
+        return CredencialesMapper.toDomain(entity);
     }
 
     @Override
     public Credenciales buscarPorUsername(String username) {
-        return dao.buscarPorUsername(username);
+        CredencialesEntity entity = dao.buscarPorUsername(username);
+        return CredencialesMapper.toDomain(entity);
     }
 
     @Override
