@@ -6,6 +6,9 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.rodolfo.cashflow.domain.models.enums.EstadoTransaccion;
+import com.rodolfo.cashflow.domain.models.enums.TipoTransaccion;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -48,19 +51,28 @@ public class TransaccionEntity {
     private Long id;
 
     @ColumnInfo(name = "fecha")
-    private LocalDate date;
+    private LocalDate fecha;
 
     @ColumnInfo(name = "monto")
     private BigDecimal monto;
 
     @ColumnInfo(name = "tipo")
-    private String tipo;
+    private TipoTransaccion tipo;
+
+    @ColumnInfo(name = "estado")
+    private EstadoTransaccion estado;
 
     @ColumnInfo(name = "id_usuario_origen")
     private Long idUsuarioOrigen;
 
     @ColumnInfo(name = "id_usuario_destino")
     private Long idUsuarioDestino;
+
+    @ColumnInfo(name = "saldo_anterior")
+    private BigDecimal saldoAnterior;
+
+    @ColumnInfo(name = "saldo_posterior")
+    private BigDecimal saldoPosterior;
 
     @ColumnInfo(name = "local_externo")
     private String localExterno;
