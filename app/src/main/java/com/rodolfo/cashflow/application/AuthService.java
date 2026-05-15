@@ -15,7 +15,6 @@ import com.rodolfo.cashflow.domain.contracts.services.IAuthService;
 import com.rodolfo.cashflow.domain.models.Credenciales;
 import com.rodolfo.cashflow.domain.models.Usuario;
 
-import java.util.UUID;
 
 @Singleton
 public class AuthService implements IAuthService {
