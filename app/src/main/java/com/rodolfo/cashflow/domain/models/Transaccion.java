@@ -1,5 +1,8 @@
 package com.rodolfo.cashflow.domain.models;
 
+import com.rodolfo.cashflow.domain.models.enums.EstadoTransaccion;
+import com.rodolfo.cashflow.domain.models.enums.TipoTransaccion;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -16,31 +19,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaccion {
-
     private Long id;
-    private LocalDate date = LocalDate.now();
+    private LocalDate fecha;
     private BigDecimal monto;
-    private String tipo;
+    private TipoTransaccion tipo;
+    private EstadoTransaccion estado;
     private Long idUsuarioOrigen;
     private Long idUsuarioDestino;
+    private BigDecimal saldoAnterior;
+    private BigDecimal saldoPosterior;
     private String localExterno;
     private String descripcion;
-
-
-    protected Transaccion(BigDecimal monto,
-                          String tipo,
-                          Long idUsuarioOrigen,
-                          Long idUsuarioDestino,
-                          String localExterno,
-                          String descripcion) {
-
-        this.monto = monto;
-        this.tipo = tipo;
-        this.idUsuarioOrigen = idUsuarioOrigen;
-        this.idUsuarioDestino = idUsuarioDestino;
-        this.localExterno = localExterno;
-        this.descripcion = descripcion;
-        this.date = LocalDate.now();
-    }
-
 }
