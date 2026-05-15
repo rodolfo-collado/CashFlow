@@ -10,15 +10,20 @@ public class UsuarioMapper {
     private UsuarioMapper() {}
 
     public static UsuarioEntity toEntity(Usuario domain) {
-        UsuarioEntity entity = new UsuarioEntity();
-        entity.setId(domain.getId());
-        entity.setNombre(domain.getNombre());
-        entity.setApellido(domain.getApellido());
-        entity.setCorreo(domain.getCorreo());
-        entity.setTelefono(domain.getTelefono());
-        entity.setDireccion(domain.getDireccion());
-        entity.setSaldoTotal(domain.getSaldoTotal());
-        return entity;
+        return new UsuarioEntity(
+                domain.getId(),
+                domain.getNombre(),
+                domain.getApellido(),
+                domain.getFechaNacimiento(),
+                domain.getCorreo(),
+                domain.getTelefono(),
+                domain.getDireccion(),
+                domain.getCiudad(),
+                domain.getPais(),
+                domain.getEstadoUsuario(),
+                domain.getFechaCreacion(),
+                domain.getFechaActualizacion()
+        );
     }
 
     public static Usuario toDomain(UsuarioEntity entity) {
@@ -26,10 +31,15 @@ public class UsuarioMapper {
                 entity.getId(),
                 entity.getNombre(),
                 entity.getApellido(),
+                entity.getFechaNacimiento(),
                 entity.getCorreo(),
                 entity.getTelefono(),
                 entity.getDireccion(),
-                entity.getSaldoTotal()
+                entity.getCiudad(),
+                entity.getPais(),
+                entity.getEstadoUsuario(),
+                entity.getFechaCreacion(),
+                entity.getFechaActualizacion()
         );
     }
 

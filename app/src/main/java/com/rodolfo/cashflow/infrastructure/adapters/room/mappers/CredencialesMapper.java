@@ -8,17 +8,19 @@ public class CredencialesMapper {
     private CredencialesMapper() {}
 
     public static CredencialesEntity toEntity(Credenciales domain){
-        CredencialesEntity entity = new CredencialesEntity();
-        entity.setId(domain.getId());
-        entity.setUsername(domain.getUsername());
-        entity.setPassword(domain.getPassword());
-        entity.setPin(domain.getPin());
-        return entity;
+        return new CredencialesEntity(
+                domain.getId(),
+                domain.getUsuarioId(),
+                domain.getUsername(),
+                domain.getPassword(),
+                domain.getPin()
+        );
     }
 
-    public static Credenciales toDomain(CredencialesEntity entity){
+    public static Credenciales toDomain(CredencialesEntity entity) {
         return new Credenciales(
                 entity.getId(),
+                entity.getUsuarioId(),
                 entity.getUsername(),
                 entity.getPassword(),
                 entity.getPin()

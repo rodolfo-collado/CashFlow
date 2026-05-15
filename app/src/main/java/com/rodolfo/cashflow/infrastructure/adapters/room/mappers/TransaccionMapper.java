@@ -11,26 +11,32 @@ public class TransaccionMapper {
     private TransaccionMapper() {}
 
     public static TransaccionEntity toEntity(Transaccion domain){
-        TransaccionEntity entity = new TransaccionEntity();
-        entity.setId(domain.getId());
-        entity.setDate(domain.getDate());
-        entity.setMonto(domain.getMonto());
-        entity.setTipo(domain.getTipo());
-        entity.setIdUsuarioOrigen(domain.getIdUsuarioOrigen());
-        entity.setIdUsuarioDestino(domain.getIdUsuarioDestino());
-        entity.setLocalExterno(domain.getLocalExterno());
-        entity.setDescripcion(domain.getDescripcion());
-        return entity;
+        return new TransaccionEntity(
+                domain.getId(),
+                domain.getFecha(),
+                domain.getMonto(),
+                domain.getTipo(),
+                domain.getEstado(),
+                domain.getIdUsuarioOrigen(),
+                domain.getIdUsuarioDestino(),
+                domain.getSaldoAnterior(),
+                domain.getSaldoPosterior(),
+                domain.getLocalExterno(),
+                domain.getDescripcion()
+        );
     }
 
     public static Transaccion toDomain(TransaccionEntity entity){
         return new Transaccion(
                 entity.getId(),
-                entity.getDate(),
+                entity.getFecha(),
                 entity.getMonto(),
                 entity.getTipo(),
+                entity.getEstado(),
                 entity.getIdUsuarioOrigen(),
                 entity.getIdUsuarioDestino(),
+                entity.getSaldoAnterior(),
+                entity.getSaldoPosterior(),
                 entity.getLocalExterno(),
                 entity.getDescripcion()
         );
