@@ -1,6 +1,7 @@
 package com.rodolfo.cashflow.domain.models;
 
-import java.math.BigDecimal;
+import com.rodolfo.cashflow.domain.models.enums.EstadoUsuario;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,8 +18,13 @@ public class Usuario {
     private Long id;
     private String nombre;
     private String apellido;
+    private LocalDate fechaNacimiento;
     private String correo;
     private String telefono;
     private String direccion;
-    private BigDecimal saldoTotal = BigDecimal.ZERO;
+    private String ciudad;
+    private String pais;
+    private EstadoUsuario estadoUsuario;
+    private LocalDate fechaCreacion;
+    private LocalDate fechaActualizacion;
 }
