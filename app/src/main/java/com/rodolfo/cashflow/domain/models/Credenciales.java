@@ -12,18 +12,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Credenciales {
-
     private Long id;
     private Long usuarioId;
     private String username;
     private String password;
     private String pin;
-
-    public Credenciales(Long usuarioId, String username, String password, String pin){
-        this.id = null;
-        this.usuarioId = usuarioId;
-        this.username = username;
-        this.password = password;
-        this.pin = pin;
-    }
 }
+/*
+A futuro con kotlin:
+
+  private LocalDateTime ultimoAcceso;
+  private Integer intentosFallidos;
+  private LocalDateTime bloqueadoHasta;
+  private LocalDateTime fechaUltimoCambioPassword;
+  private LocalDateTime fechaUltimoCambioPin;
+  private Boolean requiereCambioPassword;
+  private Boolean requiereCambioPin;
+ */

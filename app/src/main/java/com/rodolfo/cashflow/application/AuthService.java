@@ -50,7 +50,7 @@ public class AuthService implements IAuthService {
         credencialesValidator.validarUsernameDisponible(username);
 
         Long usuarioId = userRepo.insertar(usuario);
-        Credenciales credenciales = new Credenciales(usuarioId, username, password, pin);
+        Credenciales credenciales = new Credenciales(null, usuarioId, username, password, pin);
         credRepo.insertar(credenciales);
         sesionActual.iniciar(usuario);
     }
